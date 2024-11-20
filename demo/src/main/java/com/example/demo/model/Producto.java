@@ -10,10 +10,9 @@ public class Producto {
     private Long id;
 
     private String nombre;
-    private double precio;
-    private int existencia; // Asegúrate de que 'existencia' esté definido aquí.
-    private String descripcion;
-    private String nombreprov;
+    private String apellido; 
+    private String ine;
+    private double sueldo;
 
     // Getters y setters
     public Long getId() {
@@ -32,35 +31,28 @@ public class Producto {
         this.nombre = nombre;
     }
 
-    public double getPrecio() {
-        return precio;
+    public String getApellido() {
+        return apellido;
     }
 
-    public void setPrecio(double precio) {
-        this.precio = precio;
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
-    public int getExistencia() {
-        return existencia;
+    public String getIne() {
+        return ine;
     }
 
-    public void setExistencia(int existencia) {
-        this.existencia = existencia; // Este método debe existir para poder asignar valores a existencia
+    public void setIne(String ine) {
+        this.ine = ine; // Este método debe existir para poder asignar valores a existencia
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public double getSueldo() {
+        return sueldo;
     }
 
-    public void setDescripcion(String descripcion){
-        this.descripcion = descripcion;
+    public void setSueldo(double sueldo){
+        this.sueldo = sueldo;
     }
 
-    public String getNombreprov() {
-        return nombreprov;
-    }
-
-    public void setNombreprov(String nombreprov){
-        this.nombreprov = nombreprov;
-    }
 }

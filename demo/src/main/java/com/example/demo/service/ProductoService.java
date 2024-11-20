@@ -47,10 +47,9 @@ public class ProductoService {
 
             // Actualizamos los campos del producto
             productoActualizado.setNombre(producto.getNombre());
-            productoActualizado.setPrecio(producto.getPrecio());
-            productoActualizado.setExistencia(producto.getExistencia());
-            productoActualizado.setDescripcion(producto.getDescripcion());
-            productoActualizado.setNombreprov(producto.getNombreprov());
+            productoActualizado.setApellido(producto.getApellido());
+            productoActualizado.setIne(producto.getIne());
+            productoActualizado.setSueldo(producto.getSueldo());
 
             // Guardamos el producto actualizado en la base de datos
             return productoRepository.save(productoActualizado);
