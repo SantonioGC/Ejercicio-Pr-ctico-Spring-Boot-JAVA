@@ -46,11 +46,10 @@ public class ProductoService {
             Producto productoActualizado = productoExistente.get();
 
             // Actualizamos los campos del producto
-            productoActualizado.setTitulo(producto.getTitulo());
-            productoActualizado.setAutor(producto.getAutor());
-            productoActualizado.setIsbn(producto.getIsbn());
-            productoActualizado.setPublicacion(producto.getPublicacion());
-            productoActualizado.setPrecio(producto.getPrecio());
+            productoActualizado.setNombre(producto.getNombre());
+            productoActualizado.setApellido(producto.getApellido());
+            productoActualizado.setIne(producto.getIne());
+            productoActualizado.setSueldo(producto.getSueldo());
 
             // Guardamos el producto actualizado en la base de datos
             return productoRepository.save(productoActualizado);
@@ -61,7 +60,7 @@ public class ProductoService {
     }
 
     // Método para buscar productos por nombre
-    public List<Producto> findProductosByTitulo(String titulo) {
-        return productoRepository.findByTitulo(titulo);
+    public List<Producto> findProductosByNombre(String nombre) {
+        return productoRepository.findByNombre(nombre);
     }
 }

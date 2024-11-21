@@ -1,24 +1,19 @@
 package com.example.demo.model;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "libros")
+
 public class Producto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id 
     private Long id;
 
-    private String titulo;
-    private String autor; 
-    private String isbn;
-    private String publicacion;
-    private double precio;
+    private String nombre;
+    private String apellido; 
+    private String ine;
+    private double sueldo;
 
     // Getters y setters
     public Long getId() {
@@ -29,44 +24,36 @@ public class Producto {
         this.id = id;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getAutor() {
-        return autor;
+    public String getApellido() {
+        return apellido;
     }
 
-    public void setAutor(String autor) {
-        this.autor = autor;
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
     }
 
-    public String getIsbn() {
-        return isbn;
+    public String getIne() {
+        return ine;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn; 
+    public void setIne(String ine) {
+        this.ine = ine;
     }
 
-    public String getPublicacion() {
-        return publicacion;
+    public double getSueldo() {
+        return sueldo;
     }
 
-    public void setPublicacion(String publicacion){
-        this.publicacion = publicacion;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio){
-        this.precio = precio;
+    public void setSueldo(double sueldo){
+        this.sueldo = sueldo;
     }
 
 }
