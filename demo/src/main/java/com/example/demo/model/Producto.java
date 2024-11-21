@@ -1,18 +1,24 @@
 package com.example.demo.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "libros")
 public class Producto {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre;
-    private String apellido; 
-    private String ine;
-    private double sueldo;
+    private String titulo;
+    private String autor; 
+    private String isbn;
+    private String publicacion;
+    private double precio;
 
     // Getters y setters
     public Long getId() {
@@ -23,36 +29,44 @@ public class Producto {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getAutor() {
+        return autor;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setAutor(String autor) {
+        this.autor = autor;
     }
 
-    public String getIne() {
-        return ine;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setIne(String ine) {
-        this.ine = ine; // Este método debe existir para poder asignar valores a existencia
+    public void setIsbn(String isbn) {
+        this.isbn = isbn; 
     }
 
-    public double getSueldo() {
-        return sueldo;
+    public String getPublicacion() {
+        return publicacion;
     }
 
-    public void setSueldo(double sueldo){
-        this.sueldo = sueldo;
+    public void setPublicacion(String publicacion){
+        this.publicacion = publicacion;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio){
+        this.precio = precio;
     }
 
 }
