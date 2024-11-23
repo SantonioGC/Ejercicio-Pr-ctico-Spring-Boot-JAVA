@@ -1,9 +1,10 @@
 package com.example.demo;
 
 //SERGIO ANTONIO GOMEZ CAZARES//
-//Bryan Tadeo Zavala Martinez//
+//BRYAN TADEO ZAVALA MARTINEZ//
 //JOHAN URIEL CARRILLO PORTILLO//
-//Carlos Alberto Romero Corral//
+//CARLOS ALBERTO ROMERO CORRAL//
+//JESUS ARTUTO CARRILLO AVILEZ
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
