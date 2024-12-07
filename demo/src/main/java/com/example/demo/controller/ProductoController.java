@@ -1,64 +1,72 @@
-package com.example.demo.controller;
+package com.example.demo.Controller;
 
-import java.util.List;
-import java.util.Optional;
-
+import com.example.demo.model.Persona;
+import com.example.demo.repository.PersonaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.example.demo.model.Producto;
-import com.example.demo.service.ProductoService;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @RestController
-@RequestMapping("/api/libros")
-public class ProductoController {
+@RequestMapping("/proyecto")
+public class ProyectoController {
 
     @Autowired
-    private ProductoService productoService;
+    private PersonaRepository personaRepository;
 
-    @PostMapping
-    public ResponseEntity<Producto> crearProducto(@RequestBody Producto producto) {
-        Producto nuevoProducto = productoService.saveProducto(producto);
-        return new ResponseEntity<>(nuevoProducto, HttpStatus.CREATED);
+    // Método GET /proyecto/numero
+    @GetMapping("/numero")
+    public List<Integer> getNumeros() {
+        Random random = new Random();
+        return IntStream.range(0, 10).map(i -> random.nextInt(100)).boxed().collect(Collectors.toList());
     }
 
-    @GetMapping
-    public ResponseEntity<List<Producto>> obtenerTodosLosProductos() {
-        List<Producto> productos = productoService.getAllProductos();
-        return new ResponseEntity<>(productos, HttpStatus.OK);
+    // Método POST /proyecto/pares
+    @PostMapping("/pares")
+    public Map<String, List<Integer>> getParesImpares(@RequestBody List<Integer> numeros) {
+        List<Integer> pares = numeros.stream().filter(n -> n % 2 == 0).collect(Collectors.toList());
+        List<Integer> impares = numeros.stream().filter(n -> n % 2 != 0).collect(Collectors.toList());
+
+        Map<String, List<Integer>> response = new HashMap<>();
+        response.put("pares", pares);
+        response.put("impares", impares);
+        return response;
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Producto> obtenerProductoPorId(@PathVariable Long id) {
-        Optional<Producto> producto = productoService.obtenerProductoPorId(id);
-        return producto.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    // Método POST /proyecto/validacorreo
+    @PostMapping("/validacorreo")
+    public String validarCorreo(@RequestBody String correo) {
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        if (correo.matches(emailRegex)) {
+            return "Correo válido";
+        } else {
+            return "Correo no válido";
+        }
     }
 
-        @PutMapping("/{id}")
-        public ResponseEntity<Producto> actualizarProducto(@PathVariable Long id, @RequestBody Producto producto) {
-            try {
-                // Actualizamos el producto
-                Producto productoActualizado = productoService.actualizarProducto(id, producto);
-                // Retornamos el producto actualizado con un código 200 (OK)
-                return new ResponseEntity<>(productoActualizado, HttpStatus.OK);
-            } catch (RuntimeException e) {
-                // Si el producto no se encuentra, respondemos con un código 404 (Not Found)
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    // Método POST /proyecto/crearArchivo
+    @PostMapping("/crearArchivo")
+    public String crearArchivo(@RequestBody List<Persona> personas) throws IOException {
+        File file = new File("personas.txt");
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            for (Persona persona : personas) {
+                writer.write(persona.getNombre() + "|" + persona.getApellidoPaterno() + "|" + persona.getApellidoMaterno() + "|" + persona.getEdad());
+                writer.newLine();
             }
         }
+        return "Archivo creado con éxito";
+    }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> eliminarProducto(@PathVariable Long id) {
-        productoService.deleteProducto(id);
-        return ResponseEntity.noContent().build();
+    // Método POST /proyecto/crearUsuario
+    @PostMapping("/crearUsuario")
+    public Long crearUsuario(@RequestBody Persona persona) {
+        Persona usuarioGuardado = personaRepository.save(persona);
+        return usuarioGuardado.getId();
     }
 }
